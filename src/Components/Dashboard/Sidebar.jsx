@@ -83,7 +83,7 @@ const Sidebar = ({ toggleSidebar, isOpen }) => {
               <FiHome /> <span>Dashboard</span>
             </NavLink>
 
-            <NavLink
+            {/* <NavLink
               to="users"
               onClick={() => {
                 if (window.innerWidth < 768) toggleSidebar();
@@ -91,7 +91,7 @@ const Sidebar = ({ toggleSidebar, isOpen }) => {
               className="flex items-center  text-lg font-semibold space-x-2 hover:bg-sky-950 p-2 rounded-xl cursor-pointer"
             >
               <FiUsers /> <span>Users</span>
-            </NavLink>
+            </NavLink> */}
 
             <NavLink
               to="career"

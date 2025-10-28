@@ -12,13 +12,13 @@ import {
 
 const Overview = () => {
   const [stats, setStats] = useState([
-    {
-      key: "users",
-      icon: <FaUsers size={24} />,
-      label: "Total Users",
-      value: 0,
-      bg: "bg-yellow-500",
-    },
+    // {
+    //   key: "users",
+    //   icon: <FaUsers size={24} />,
+    //   label: "Total Users",
+    //   value: 0,
+    //   bg: "bg-yellow-500",
+    // },
     {
       key: "enquiries",
       icon: <FaEnvelope size={24} />,
