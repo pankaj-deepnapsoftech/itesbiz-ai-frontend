@@ -16,6 +16,7 @@ import { NavLink } from "react-router-dom";
 import RevealWrapper from "../Components/RevealWrapper";
 import Slider from "./Slider";
 import { motion } from "framer-motion";
+import Clients from "../Components/Clients";
 
 // Add custom styles for animations
 const customStyles = `
@@ -224,6 +225,8 @@ py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32 2xl:py-40 overflow-hidden">
       >
         <AutoSlider />
       </motion.div>
+
+      <Clients />
 
       {/* Stats Section */}
       <div className="w-full max-w-screen-xl mx-auto flex items-center justify-center text-white flex-col px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16">
