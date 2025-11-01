@@ -128,3 +128,11 @@
   scrollbar-width: thin;
   scrollbar-color: #ffff #eaecf0;
 }
+
+.blog-content a {
+  color: #2563eb; /* Tailwind's blue-600 */
+  text-decoration: underline;
+}
+.blog-content a:hover {
+  color: #1d4ed8; /* Tailwind's blue-700 */
+}

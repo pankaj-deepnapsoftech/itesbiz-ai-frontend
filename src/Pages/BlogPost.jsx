@@ -230,10 +230,19 @@ const BlogPost = () => {
                         {relatedBlog.title}
                       </h3>
 
-                      <p className="text-gray-600 mb-4 line-clamp-3">
+                      {/* <p className="text-gray-600 mb-4 line-clamp-3">
                         {relatedBlog.excerpt ||
                           relatedBlog.content.substring(0, 100) + "..."}
+                      </p> */
+                      }
+
+                      <p className="text-gray-600 mb-4 line-clamp-3">
+                          {relatedBlog.excerpt ||
+                            (relatedBlog.content
+                              ? relatedBlog.content.substring(0, 100) + "..."
+                              : "")}
                       </p>
+
 
                       <Link
                         to={`/blog/${relatedBlog.slug}`}

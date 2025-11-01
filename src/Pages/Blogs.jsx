@@ -94,10 +94,15 @@ const Blogs = () => {
     });
   };
 
+  // const truncateText = (text, maxLength) => {
+  //   if (text.length <= maxLength) return text;
+  //   return text.substr(0, maxLength) + "...";
+  // };
   const truncateText = (text, maxLength) => {
-    if (text.length <= maxLength) return text;
-    return text.substr(0, maxLength) + "...";
-  };
+  if (!text || typeof text !== "string") return "";
+  return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+};
+
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -223,9 +228,10 @@ const Blogs = () => {
                       {blog.title}
                     </h2>
 
-                    <p className="text-gray-600 mb-4 line-clamp-3">
+                    {/* <p className="text-gray-600 mb-4 line-clamp-3">
                       {blog.excerpt || truncateText(blog.content, 150)}
-                    </p>
+                    </p> */}
+
 
                     {blog.tags && blog.tags.length > 0 && (
                       <div className="flex flex-wrap gap-1 mb-4">

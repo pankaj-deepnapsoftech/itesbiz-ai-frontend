@@ -6,6 +6,81 @@ import toast from "react-hot-toast";
 import Modal from "../../Components/Dashboard/Modal";
 import DetailsComponent from "../../Components/Dashboard/DetailsComponent";
 
+import { useQuill } from "react-quilljs";
+import "quill/dist/quill.snow.css";
+
+
+// Paste this after imports
+const BlogEditor = ({ formData, setFormData, editBlog }) => {
+  const { quill, quillRef } = useQuill({
+    theme: "snow",
+    modules: {
+      toolbar: [
+        [{ header: [1, 2, 3, 4, 5, false] }],
+        ["bold", "italic", "underline", "strike"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        ["link", "image"],
+        ["clean"],
+      ],
+    },
+  });
+
+useEffect(() => {
+  if (!quill) return;
+
+  // Load content when creating or editing
+  const initialContent = editBlog?.content ?? formData.content ?? "";
+  quill.root.innerHTML = initialContent;
+
+  const onChange = () => {
+    // Normalize links before saving
+    quill.root.querySelectorAll("a").forEach((link) => {
+      const href = link.getAttribute("href") || "";
+      if (href && !/^https?:\/\//i.test(href)) {
+        link.setAttribute("href", "https://" + href);
+      }
+    });
+
+    setFormData((prev) => ({
+      ...prev,
+      content: quill.root.innerHTML,
+    }));
+  };
+
+  quill.on("text-change", onChange);
+
+  // Re-apply content when switching to edit mode
+  if (editBlog) {
+    setTimeout(() => {
+      quill.root.innerHTML = editBlog.content || "";
+    }, 100);
+  }
+
+  return () => {
+    quill.off("text-change", onChange);
+  };
+}, [quill, editBlog]);
+
+
+  return (
+    <div>
+      <label className="block text-sm font-medium text-gray-700 mb-1">
+        Content *
+      </label>
+      <div
+        ref={quillRef}
+        className="w-full border border-gray-300 rounded-md focus-within:ring-2 focus-within:ring-blue-500 min-h-[200px] p-2"
+      />
+    </div>
+  );
+};
+
+
+
+
+
+
+
 const Blogs = () => {
   const [search, setSearch] = useState("");
   const [blogList, setBlogList] = useState([]);
@@ -27,12 +102,76 @@ const Blogs = () => {
     author: "",
     excerpt: "",
     featuredImage: "",
-    tags: "",
+    tags: [],
     category: "General",
     status: "draft",
     isFeatured: false,
   });
-  const [imageFile, setImageFile] = useState(null);
+
+const [imageFile, setImageFile] = useState(null);
+
+// ✅ Initialize Quill once globally
+// const { quill, quillRef } = useQuill({
+//   theme: "snow",
+//   modules: {
+//     toolbar: [
+//       ["bold", "italic", "underline"],
+//       [{ list: "ordered" }, { list: "bullet" }],
+//       ["link", "image"],
+//     ],
+//   },
+// });
+
+
+// // ✅ Ensure content loads correctly
+// useEffect(() => {
+//   if (!quill) return;
+
+//   // Initial content
+//   quill.root.innerHTML = formData.content || "";
+
+//   // Update content on change
+//   quill.on("text-change", () => {
+//     // Normalize URLs
+//     const links = quill.root.querySelectorAll("a");
+//     links.forEach((link) => {
+//       const href = link.getAttribute("href") || "";
+//       if (!/^https?:\/\//i.test(href)) {
+//         link.setAttribute("href", "https://" + href);
+//       }
+//     });
+
+//     setFormData((prev) => ({
+//       ...prev,
+//       content: quill.root.innerHTML,
+//     }));
+//   });
+// }, [quill]);
+
+// // ✅ Load content properly when editing
+// useEffect(() => {
+//   if (quill && editBlog) {
+//     setTimeout(() => {
+//       quill.root.innerHTML = editBlog.content || "";
+//     }, 200); // small delay ensures Quill is ready
+//   }
+// }, [quill, editBlog, isEditModalOpen]);
+
+// // ✅ Reset editor when creating a new one
+// useEffect(() => {
+//   if (quill && isCreateModalOpen) {
+//     setTimeout(() => {
+//       quill.root.innerHTML = "";
+//     }, 200);
+//   }
+// }, [quill, isCreateModalOpen]);
+
+
+
+
+
+
+
 
   const getBlogs = useCallback(async () => {
     try {
@@ -131,7 +270,13 @@ const Blogs = () => {
       author: blogData.author || "",
       excerpt: blogData.excerpt || "",
       featuredImage: blogData.featuredImage || "",
-      tags: blogData.tags?.join(", ") || "",
+      // tags: blogData.tags?.join(", ") || "",
+      tags: Array.isArray(blogData.tags)
+  ? blogData.tags
+  : blogData.tags
+  ? blogData.tags.split(",").map(t => t.trim())
+  : [],
+
       category: blogData.category || "General",
       status: blogData.status || "draft",
       isFeatured: blogData.isFeatured || false,
@@ -146,7 +291,7 @@ const Blogs = () => {
       author: "",
       excerpt: "",
       featuredImage: "",
-      tags: "",
+      tags: [],
       category: "General",
       status: "draft",
       isFeatured: false,
@@ -163,81 +308,153 @@ const Blogs = () => {
     });
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const token = localStorage.getItem("user");
+  //     let payload;
+  //     let headers = { Authorization: `Bearer ${token}` };
+
+  //     if (imageFile) {
+  //       const fd = new FormData();
+  //       fd.append("title", formData.title);
+  //       fd.append("content", formData.content);
+  //       fd.append("author", formData.author);
+  //       fd.append("excerpt", formData.excerpt);
+  //       fd.append(
+  //         "tags",
+  //         formData.tags
+  //           ? JSON.stringify(
+  //               formData.tags
+  //                 .split(",")
+  //                 .map((tag) => tag.trim())
+  //                 .filter(Boolean)
+  //             )
+  //           : JSON.stringify([])
+  //       );
+  //       fd.append("category", formData.category);
+  //       fd.append("status", formData.status);
+  //       fd.append("isFeatured", String(formData.isFeatured));
+  //       fd.append("featuredImage", imageFile);
+  //       payload = fd;
+  //       // Do not set Content-Type; browser will set multipart boundary
+  //     } else {
+  //       payload = {
+  //         ...formData,
+  //         tags: formData.tags
+  //           ? formData.tags
+  //               .split(",")
+  //               .map((tag) => tag.trim())
+  //               .filter(Boolean)
+  //           : [],
+  //       };
+  //       headers["Content-Type"] = "application/json";
+  //     }
+
+  //     let response;
+  //     if (editBlog) {
+  //       response = await axios.put(
+  //         `${import.meta.env.VITE_BACKEND_BASE_URL}/blog/${editBlog._id}`,
+  //         payload,
+  //         { headers }
+  //       );
+  //       toast.success("Blog updated successfully");
+  //     } else {
+  //       response = await axios.post(
+  //         `${import.meta.env.VITE_BACKEND_BASE_URL}/blog`,
+  //         payload,
+  //         { headers }
+  //       );
+  //       toast.success("Blog created successfully");
+  //     }
+
+  //     if (response.data.success) {
+  //       setIsCreateModalOpen(false);
+  //       setIsEditModalOpen(false);
+  //       setEditBlog(null);
+  //       setImageFile(null);
+  //       getBlogs(); // Refresh the list
+  //     }
+  //   } catch (error) {
+  //     console.error(
+  //       console.log(error),
+  //       "Error saving blog:",
+  //       error.response?.data || error.message
+  //     );
+  //     toast.error("Failed to save blog");
+  //   }
+  // };
+
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const token = localStorage.getItem("user");
-      let payload;
-      let headers = { Authorization: `Bearer ${token}` };
+  e.preventDefault();
+  try {
+    const token = localStorage.getItem("user");
+    let payload;
+    let headers = { Authorization: `Bearer ${token}` };
 
-      if (imageFile) {
-        const fd = new FormData();
-        fd.append("title", formData.title);
-        fd.append("content", formData.content);
-        fd.append("author", formData.author);
-        fd.append("excerpt", formData.excerpt);
-        fd.append(
-          "tags",
-          formData.tags
-            ? JSON.stringify(
-                formData.tags
-                  .split(",")
-                  .map((tag) => tag.trim())
-                  .filter(Boolean)
-              )
-            : JSON.stringify([])
-        );
-        fd.append("category", formData.category);
-        fd.append("status", formData.status);
-        fd.append("isFeatured", String(formData.isFeatured));
-        fd.append("featuredImage", imageFile);
-        payload = fd;
-        // Do not set Content-Type; browser will set multipart boundary
-      } else {
-        payload = {
-          ...formData,
-          tags: formData.tags
-            ? formData.tags
-                .split(",")
-                .map((tag) => tag.trim())
-                .filter(Boolean)
-            : [],
-        };
-        headers["Content-Type"] = "application/json";
-      }
+    // ✅ Normalize tags (array → string)
+    const normalizedTags = Array.isArray(formData.tags)
+      ? formData.tags
+      : typeof formData.tags === "string"
+      ? formData.tags
+          .split(",")
+          .map((tag) => tag.trim())
+          .filter(Boolean)
+      : [];
 
-      let response;
-      if (editBlog) {
-        response = await axios.put(
-          `${import.meta.env.VITE_BACKEND_BASE_URL}/blog/${editBlog._id}`,
-          payload,
-          { headers }
-        );
-        toast.success("Blog updated successfully");
-      } else {
-        response = await axios.post(
-          `${import.meta.env.VITE_BACKEND_BASE_URL}/blog`,
-          payload,
-          { headers }
-        );
-        toast.success("Blog created successfully");
-      }
-
-      if (response.data.success) {
-        setIsCreateModalOpen(false);
-        setIsEditModalOpen(false);
-        setEditBlog(null);
-        setImageFile(null);
-        getBlogs(); // Refresh the list
-      }
-    } catch (error) {
-      console.error(
-        "Error saving blog:",
-        error.response?.data || error.message
-      );
-      toast.error("Failed to save blog");
+    if (imageFile) {
+      const fd = new FormData();
+      fd.append("title", formData.title);
+      fd.append("content", formData.content);
+      fd.append("author", formData.author);
+      fd.append("excerpt", formData.excerpt);
+      fd.append("tags", JSON.stringify(normalizedTags)); // ✅ fixed
+      fd.append("category", formData.category);
+      fd.append("status", formData.status);
+      fd.append("isFeatured", String(formData.isFeatured));
+      fd.append("featuredImage", imageFile);
+      payload = fd;
+      // do not set Content-Type manually for FormData
+    } else {
+      payload = {
+        ...formData,
+        tags: normalizedTags, // ✅ fixed
+      };
+      headers["Content-Type"] = "application/json";
     }
-  };
+
+    let response;
+    if (editBlog) {
+      response = await axios.put(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/blog/${editBlog._id}`,
+        payload,
+        { headers }
+      );
+      toast.success("Blog updated successfully");
+    } else {
+      response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/blog`,
+        payload,
+        { headers }
+      );
+      toast.success("Blog created successfully");
+    }
+
+    if (response.data.success) {
+      setIsCreateModalOpen(false);
+      setIsEditModalOpen(false);
+      setEditBlog(null);
+      setImageFile(null);
+      getBlogs(); // ✅ refresh list
+    }
+  } catch (error) {
+    console.error("Error saving blog:", error.response?.data || error.message);
+    toast.error("Failed to save blog");
+  }
+};
+
+
 
   return (
     <div className="p-2">
@@ -475,36 +692,16 @@ const Blogs = () => {
                 </select>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Excerpt
-                </label>
-                <textarea
-                  name="excerpt"
-                  value={formData.excerpt}
-                  onChange={handleInputChange}
-                  rows="3"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Brief description of the blog post..."
-                />
-              </div>
+                {/* replace the previous editor block with this */}
+                {(isEditModalOpen || isCreateModalOpen) && (
+                  <BlogEditor
+                    formData={formData}
+                    setFormData={setFormData}
+                    editBlog={editBlog}
+                  />
+                )}
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Content *
-                </label>
-                <textarea
-                  name="content"
-                  value={formData.content}
-                  onChange={handleInputChange}
-                  required
-                  rows="8"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Write your blog content here..."
-                />
-              </div>
-
-              <div>
+              {/* <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Tags (comma separated)
                 </label>
@@ -516,7 +713,56 @@ const Blogs = () => {
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="tag1, tag2, tag3"
                 />
-              </div>
+              </div> */}
+
+              <div className="mb-4">
+  <label className="block text-sm font-medium text-gray-700 mb-1">
+    Tags
+  </label>
+
+  <div className="flex flex-wrap items-center gap-2 border border-gray-300 rounded-md p-2">
+    {formData.tags?.map((tag, index) => (
+      <span
+        key={index}
+        className="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-sm flex items-center"
+      >
+        {tag}
+        <button
+          type="button"
+          onClick={() =>
+            setFormData((prev) => ({
+              ...prev,
+              tags: prev.tags.filter((_, i) => i !== index),
+            }))
+          }
+          className="ml-1 text-blue-500 hover:text-blue-700"
+        >
+          ×
+        </button>
+      </span>
+    ))}
+
+    <input
+      type="text"
+      className="flex-grow outline-none text-sm p-1"
+      placeholder="Type and press Enter"
+      onKeyDown={(e) => {
+        if (e.key === "Enter" && e.target.value.trim() !== "") {
+          e.preventDefault();
+          const newTag = e.target.value.trim();
+          setFormData((prev) => ({
+            ...prev,
+            tags: [...(prev.tags || []), newTag],
+          }));
+          e.target.value = "";
+        }
+      }}
+    />
+  </div>
+</div>
+
+
+
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
