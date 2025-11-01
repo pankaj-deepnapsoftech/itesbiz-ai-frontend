@@ -75,12 +75,6 @@ useEffect(() => {
   );
 };
 
-
-
-
-
-
-
 const Blogs = () => {
   const [search, setSearch] = useState("");
   const [blogList, setBlogList] = useState([]);
@@ -330,7 +324,6 @@ const [imageFile, setImageFile] = useState(null);
     let payload;
     let headers = { Authorization: `Bearer ${token}` };
 
-    // ✅ Normalize tags (array → string)
     const normalizedTags = Array.isArray(formData.tags)
       ? formData.tags
       : typeof formData.tags === "string"
@@ -678,28 +671,24 @@ const [imageFile, setImageFile] = useState(null);
                     </span>
                 ))}
 
-    <input
-      type="text"
-      className="flex-grow outline-none text-sm p-1"
-      placeholder="Type and press Enter"
-      onKeyDown={(e) => {
-        if (e.key === "Enter" && e.target.value.trim() !== "") {
-          e.preventDefault();
-          const newTag = e.target.value.trim();
-          setFormData((prev) => ({
-            ...prev,
-            tags: [...(prev.tags || []), newTag],
-          }));
-          e.target.value = "";
-        }
-      }}
-    />
-  </div>
-</div>
-
-
-
-
+                <input
+                  type="text"
+                  className="flex-grow outline-none text-sm p-1"
+                  placeholder="Type and press Enter"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && e.target.value.trim() !== "") {
+                      e.preventDefault();
+                      const newTag = e.target.value.trim();
+                      setFormData((prev) => ({
+                        ...prev,
+                        tags: [...(prev.tags || []), newTag],
+                      }));
+                      e.target.value = "";
+                    }
+                  }}
+                />
+              </div>
+            </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Featured Image
