@@ -110,69 +110,6 @@ const Blogs = () => {
 
 const [imageFile, setImageFile] = useState(null);
 
-// ✅ Initialize Quill once globally
-// const { quill, quillRef } = useQuill({
-//   theme: "snow",
-//   modules: {
-//     toolbar: [
-//       ["bold", "italic", "underline"],
-//       [{ list: "ordered" }, { list: "bullet" }],
-//       ["link", "image"],
-//     ],
-//   },
-// });
-
-
-// // ✅ Ensure content loads correctly
-// useEffect(() => {
-//   if (!quill) return;
-
-//   // Initial content
-//   quill.root.innerHTML = formData.content || "";
-
-//   // Update content on change
-//   quill.on("text-change", () => {
-//     // Normalize URLs
-//     const links = quill.root.querySelectorAll("a");
-//     links.forEach((link) => {
-//       const href = link.getAttribute("href") || "";
-//       if (!/^https?:\/\//i.test(href)) {
-//         link.setAttribute("href", "https://" + href);
-//       }
-//     });
-
-//     setFormData((prev) => ({
-//       ...prev,
-//       content: quill.root.innerHTML,
-//     }));
-//   });
-// }, [quill]);
-
-// // ✅ Load content properly when editing
-// useEffect(() => {
-//   if (quill && editBlog) {
-//     setTimeout(() => {
-//       quill.root.innerHTML = editBlog.content || "";
-//     }, 200); // small delay ensures Quill is ready
-//   }
-// }, [quill, editBlog, isEditModalOpen]);
-
-// // ✅ Reset editor when creating a new one
-// useEffect(() => {
-//   if (quill && isCreateModalOpen) {
-//     setTimeout(() => {
-//       quill.root.innerHTML = "";
-//     }, 200);
-//   }
-// }, [quill, isCreateModalOpen]);
-
-
-
-
-
-
-
-
   const getBlogs = useCallback(async () => {
     try {
       const token = localStorage.getItem("user");
@@ -409,17 +346,16 @@ const [imageFile, setImageFile] = useState(null);
       fd.append("content", formData.content);
       fd.append("author", formData.author);
       fd.append("excerpt", formData.excerpt);
-      fd.append("tags", JSON.stringify(normalizedTags)); // ✅ fixed
+      fd.append("tags", JSON.stringify(normalizedTags));
       fd.append("category", formData.category);
       fd.append("status", formData.status);
       fd.append("isFeatured", String(formData.isFeatured));
       fd.append("featuredImage", imageFile);
       payload = fd;
-      // do not set Content-Type manually for FormData
     } else {
       payload = {
         ...formData,
-        tags: normalizedTags, // ✅ fixed
+        tags: normalizedTags,
       };
       headers["Content-Type"] = "application/json";
     }
@@ -446,7 +382,7 @@ const [imageFile, setImageFile] = useState(null);
       setIsEditModalOpen(false);
       setEditBlog(null);
       setImageFile(null);
-      getBlogs(); // ✅ refresh list
+      getBlogs(); 
     }
   } catch (error) {
     console.error("Error saving blog:", error.response?.data || error.message);
@@ -716,31 +652,31 @@ const [imageFile, setImageFile] = useState(null);
               </div> */}
 
               <div className="mb-4">
-  <label className="block text-sm font-medium text-gray-700 mb-1">
-    Tags
-  </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Tags
+                </label>
 
-  <div className="flex flex-wrap items-center gap-2 border border-gray-300 rounded-md p-2">
-    {formData.tags?.map((tag, index) => (
-      <span
-        key={index}
-        className="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-sm flex items-center"
-      >
-        {tag}
-        <button
-          type="button"
-          onClick={() =>
-            setFormData((prev) => ({
-              ...prev,
-              tags: prev.tags.filter((_, i) => i !== index),
-            }))
-          }
-          className="ml-1 text-blue-500 hover:text-blue-700"
-        >
-          ×
-        </button>
-      </span>
-    ))}
+                <div className="flex flex-wrap items-center gap-2 border border-gray-300 rounded-md p-2">
+                  {formData.tags?.map((tag, index) => (
+                    <span
+                      key={index}
+                      className="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-sm flex items-center"
+                    >
+                      {tag}
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            tags: prev.tags.filter((_, i) => i !== index),
+                          }))
+                        }
+                        className="ml-1 text-blue-500 hover:text-blue-700"
+                      >
+                        ×
+                      </button>
+                    </span>
+                ))}
 
     <input
       type="text"
