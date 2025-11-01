@@ -11,6 +11,8 @@
     "host": "vite --host"
   },
   "dependencies": {
+    "@emotion/is-prop-valid": "^1.4.0",
+    "@emotion/react": "^11.14.0",
     "@gsap/react": "^2.1.2",
     "@lexical/react": "^0.38.2",
     "@react-three/drei": "^10.0.7",

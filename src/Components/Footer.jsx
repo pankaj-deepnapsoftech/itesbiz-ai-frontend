@@ -150,7 +150,7 @@ const Footer = () => {
 
       {/* Copyright Section */}
       <div className="border-t mt-10 border-white pt-4 text-center text-sm text-gray-300">
-        © {new Date().getFullYear()} ITSYBIZZ.Ai pvt limited. All rights reserved.
+        © {new Date().getFullYear()} ITSYBIZZ AI Private Limited. All rights reserved.
       </div>
     </div>
   );
