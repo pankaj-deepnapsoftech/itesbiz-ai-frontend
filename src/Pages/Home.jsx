@@ -6,7 +6,7 @@ import BookDemo from "../Components/BookDemo";
 import ScrollReveal from "scrollreveal";
 import { TbBrandJavascript } from "react-icons/tb";
 import { DiNodejs } from "react-icons/di";
-import { FaReact, FaJava, FaPython, FaPhp, FaRocket, FaUsers, FaTrophy } from "react-icons/fa";
+import { FaReact, FaJava, FaPython, FaPhp, FaRocket, FaUsers, FaTrophy ,FaHandshake} from "react-icons/fa";
 import { RiTailwindCssFill } from "react-icons/ri";
 import { SiMongodb, SiMysql } from "react-icons/si";
 import { FaHtml5, FaCss3 } from "react-icons/fa6";
@@ -105,7 +105,9 @@ const Home = () => {
     { value: 100, label: "Finished Projects", icon: FaRocket, color: "from-blue-500 to-cyan-500" },
     { value: 30, label: "Created Jobs", icon: FaUsers, color: "from-green-500 to-emerald-500" },
     { value: 90, label: "Happy Customers", icon: FaTrophy, color: "from-purple-500 to-pink-500" },
-  ];
+    { value: 200, label: "Ongoing Partnerships", icon: FaHandshake, color: "from-yellow-500 to-orange-500" },
+];
+
 
   const techStack = [
     { icon: FaHtml5, color: "text-orange-600" }, 
@@ -239,7 +241,7 @@ py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32 2xl:py-40 overflow-hidden">
         >
           We have 80% active users across the nation
         </motion.h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-12 lg:gap-16 mb-8 sm:mb-10 w-full max-w-4xl">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-12 lg:gap-16 mb-8 sm:mb-10 w-full max-w-4xl">
           {content.map((data, index) => (
             <motion.div
               key={index}

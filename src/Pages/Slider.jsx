@@ -63,7 +63,7 @@ const TabBar = () => {
       description: "Mobile Applications"
     }
   ];
-  
+
   useGSAP(() => {
     ScrollTrigger.create({
       trigger: ".draw-path ",
@@ -186,7 +186,7 @@ const TabBar = () => {
     >
       <div className="flex flex-col items-center space-y-3">
         <CircleDot service={service} isActive={isActive} />
-        <p className="text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] font-medium text-white group-hover:text-green-400 transition-colors duration-300 text-center">
+        <p className="text-[12px] sm:text-[14px] md:text-[16px] lg:text-[18px] font-medium text-white group-hover:text-green-400 transition-colors duration-300 text-center">
           {service.title}
         </p>
       </div>
@@ -234,7 +234,7 @@ const TabBar = () => {
 
         {/* Center Section - Consistent layout across all screens */}
         <motion.div 
-          className="flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-8 lg:space-x-12 px-4 md:px-8 lg:px-12"
+          className="pt-20 flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-8 lg:space-x-12 px-4 md:px-8 lg:px-12"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -256,7 +256,7 @@ const TabBar = () => {
               transition={{ duration: 0.3 }}
             />
             <motion.div
-              className="mt-2 px-3 py-1 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full text-white text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] font-medium shadow-lg"
+              className="mt-2 px-3 py-1 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full text-white text-[12px] sm:text-[14px] md:text-[16px] lg:text-[18px] font-medium shadow-lg"
               whileHover={{ scale: 1.05 }}
             >
               Employees
@@ -298,12 +298,13 @@ const TabBar = () => {
               transition={{ duration: 0.3 }}
             />
             <motion.div
-              className="mt-2 px-3 py-1 bg-gradient-to-r from-purple-600 to-purple-700 rounded-full text-white text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] font-medium shadow-lg"
+              className="mt-2 px-3 py-1 bg-gradient-to-r from-purple-600 to-purple-700 rounded-full text-white text-[12px] sm:text-[14px] md:text-[16px] lg:text-[18px] font-medium shadow-lg"
               whileHover={{ scale: 1.05 }}
             >
               Customers
             </motion.div>
           </motion.div>
+          
         </motion.div>
 
         {/* Optional: SVG Background for larger screens */}

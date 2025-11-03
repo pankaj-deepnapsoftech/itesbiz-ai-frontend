@@ -242,7 +242,7 @@ const DomainList = () => {
 
         {/* Enhanced Industry Categories */}
         <motion.div 
-          className="mt-16 flex flex-wrap justify-center gap-6"
+          className="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 justify-center gap-6"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -258,7 +258,7 @@ const DomainList = () => {
                 boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
               }}
               whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 20   }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}

@@ -1,5 +1,4 @@
 import React from "react";
-// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import IncidentCard4 from "../Cards/IncidentCard4";
 import { IoClose } from "react-icons/io5"; // Modern close icon

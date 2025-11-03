@@ -129,9 +129,9 @@ const Contact = () => {
     },
     {
       title: "Phone Number",
-      description: "91-7042707091",
+      description: "91-9205404075 , 91-9205404076",
       icon: <FaPhone className="w-10 h-10 text-green-500" />,
-      link: "tel:917042707091",
+      link: "tel:919205404075",
       action: "Call Now"
     },
     {
