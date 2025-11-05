@@ -9,7 +9,6 @@ import DetailsComponent from "../../Components/Dashboard/DetailsComponent";
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
 
-// Paste this after imports
 const BlogEditor = ({ formData, setFormData, editBlog }) => {
   const quillRef = useRef(null);
   const quillInstanceRef = useRef(null);
@@ -37,12 +36,14 @@ const BlogEditor = ({ formData, setFormData, editBlog }) => {
         const quill = quillInstanceRef.current;
         if (!quill) return;
 
-        // Normalize links before saving
+        // Normalize and highlight links
         quill.root.querySelectorAll("a").forEach((link) => {
           const href = link.getAttribute("href") || "";
           if (href && !/^https?:\/\//i.test(href)) {
             link.setAttribute("href", "https://" + href);
           }
+          link.style.color = "#1d4ed8"; // blue-700
+          link.style.textDecoration = "underline";
         });
 
         setFormData((prev) => ({
@@ -58,11 +59,21 @@ const BlogEditor = ({ formData, setFormData, editBlog }) => {
       quillInstanceRef.current.root.innerHTML = initialContent;
     }
 
+    // Highlight links in loaded content
+    const quill = quillInstanceRef.current;
+    if (quill) {
+      quill.root.querySelectorAll("a").forEach((link) => {
+        const href = link.getAttribute("href") || "";
+        if (href && !/^https?:\/\//i.test(href)) {
+          link.setAttribute("href", "https://" + href);
+        }
+        link.style.color = "#1d4ed8";
+        link.style.textDecoration = "underline";
+      });
+    }
+
     return () => {
-      // Cleanup on unmount
-      if (quillInstanceRef.current) {
-        quillInstanceRef.current = null;
-      }
+      quillInstanceRef.current = null;
     };
   }, [editBlog]);
 
@@ -78,6 +89,7 @@ const BlogEditor = ({ formData, setFormData, editBlog }) => {
     </div>
   );
 };
+
 
 const Blogs = () => {
   const [search, setSearch] = useState("");

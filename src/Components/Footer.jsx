@@ -11,17 +11,17 @@ import { FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
   const digitalMarketingLinks = [
-    { title: "Meta  Ads", link: "/digitalMarketing?title=Meta%20Ads" },
-    { title: "Google Ads", link: "/digitalMarketing?title=Google%20Ads" },
+    { title: "Meta  Ads", link: "/digitalMarketing?title=MetaAds" },
+    { title: "Google Ads", link: "/digitalMarketing?title=GoogleAds" },
     {
       title: "Email Marketing",
-      link: "/digitalMarketing?title=Email%20Marketing",
+      link: "/digitalMarketing?title=EmailMarketing",
     },
     {
       title: "Content Marketing",
-      link: "/digitalMarketing?title=Content%20Marketing",
+      link: "/digitalMarketing?title=ContentMarketing",
     },
-    { title: "SEO & SEM", link: "/digitalMarketing?title=SEO%20SEM" },
+    { title: "SEO & SEM", link: "/digitalMarketing?title=SEOSEM" },
     { title: "PPC", link: "/digitalMarketing?title=PPC" },
   ];
 

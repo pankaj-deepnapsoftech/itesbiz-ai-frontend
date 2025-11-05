@@ -18,28 +18,28 @@ const Header = () => {
   };
 
   const developmentmenu = [
-    { title: "Web Development", link: "/development?title=Web%20Development" },
-    { title: "Web Design", link: "/development?title=Web%20Design" },
+    { title: "Web Development", link: "/development?title=WebDevelopment" },
+    { title: "Web Design", link: "/development?title=WebDesign" },
     {
       title: "Software Development",
-      link: "/development?title=Software%20Development",
+      link: "/development?title=SoftwareDevelopment",
     },
-    { title: "App Development", link: "/development?title=App%20Development" },
-    { title: "CRM Development", link: "/development?title=CRM%20Development" },
+    { title: "App Development", link: "/development?title=AppDevelopment" },
+    { title: "CRM Development", link: "/development?title=CRMDevelopment" },
   ];
 
   const becomeBrand = [
-    { title: "Brand Building", link: "/brand?title=Brand%20Building" },
+    { title: "Brand Building", link: "/brand?title=BrandBuilding" },
     { title: "ORM", link: "/brand?title=ORM" },
-    { title: "Public Relations", link: "/brand?title=Public%20Relations" },
-    { title: "Digital Marketing", link: "/brand?title=Digital%20Marketing" },
+    { title: "Public Relations", link: "/brand?title=PublicRelations" },
+    { title: "Digital Marketing", link: "/brand?title=DigitalMarketing" },
     {
       title: "Influence Marketing",
-      link: "/brand?title=Influence%20Marketing",
+      link: "/brand?title=InfluenceMarketing",
     },
     {
       title: "Social Media Presence",
-      link: "/brand?title=Social%20Media%20Presence",
+      link: "/brand?title=SocialMediaPresence",
     },
   ];
 
