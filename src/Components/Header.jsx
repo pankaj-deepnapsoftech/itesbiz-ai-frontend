@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import { NavLink } from "react-router-dom";
 import { FaRegUserCircle, FaBars, FaTimes, FaUser, FaRocket, FaGem, FaShieldAlt, FaBolt } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -10,14 +10,14 @@ const Header = () => {
   const menuRef = useRef(null);
   const [isScroll, setIsScroll] = useState(false);
   
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const toggleMenu = useCallback(() => setIsMenuOpen((v) => !v), []);
   
   // Function to close the hamburger menu
-  const closeMenu = () => {
+  const closeMenu = useCallback(() => {
     setIsMenuOpen(false);
-  };
+  }, []);
 
-  const developmentmenu = [
+  const developmentmenu = useMemo(() => [
     { title: "Web Development", link: "/development?title=WebDevelopment" },
     { title: "Web Design", link: "/development?title=WebDesign" },
     {
@@ -26,9 +26,9 @@ const Header = () => {
     },
     { title: "App Development", link: "/development?title=AppDevelopment" },
     { title: "CRM Development", link: "/development?title=CRMDevelopment" },
-  ];
+  ], []);
 
-  const becomeBrand = [
+  const becomeBrand = useMemo(() => [
     { title: "Brand Building", link: "/brand?title=BrandBuilding" },
     { title: "ORM", link: "/brand?title=ORM" },
     { title: "Public Relations", link: "/brand?title=PublicRelations" },
@@ -41,7 +41,7 @@ const Header = () => {
       title: "Social Media Presence",
       link: "/brand?title=SocialMediaPresence",
     },
-  ];
+  ], []);
 
   const products = [
     { title: "IoT Products", link: "/Iot-products" },

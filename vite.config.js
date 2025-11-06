@@ -8,6 +8,16 @@ export default defineConfig({
     include: ["quill"],
   },
   build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ["react", "react-dom", "react-router-dom"],
+          swiper: ["swiper"],
+          three: ["three", "@react-three/fiber", "@react-three/drei"],
+          editor: ["quill", "lexical", "@lexical/react"],
+        },
+      },
+    },
     commonjsOptions: {
       include: [/quill/, /node_modules/],
       transformMixedEsModules: true,

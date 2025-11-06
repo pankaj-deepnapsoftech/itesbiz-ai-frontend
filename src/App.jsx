@@ -1,52 +1,52 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense, lazy } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
-import Home from "./Pages/Home";
-import Slider from "./Pages/Slider"
-import It from "./Pages/task/It"
-import Secuirity from "./Pages/task/Secuirity"
-import HumanResource from "./Pages/task/HumanResource"
-import CRMProducts from "./Pages/Products/Client Resource management"
-import CRMTask from "./Pages/task/Crm"
-import HRMProducts from "./Pages/Products/Human resource management"
-import SoftwareDevelopment from "./Pages/Products/Real time automation"
+const Home = lazy(() => import("./Pages/Home"));
+const Slider = lazy(() => import("./Pages/Slider"));
+const It = lazy(() => import("./Pages/task/It"));
+const Secuirity = lazy(() => import("./Pages/task/Secuirity"));
+const HumanResource = lazy(() => import("./Pages/task/HumanResource"));
+const CRMProducts = lazy(() => import("./Pages/Products/Client Resource management"));
+const CRMTask = lazy(() => import("./Pages/task/Crm"));
+const HRMProducts = lazy(() => import("./Pages/Products/Human resource management"));
+const SoftwareDevelopment = lazy(() => import("./Pages/Products/Real time automation"));
 
-import AppDev from "./Pages/task/AppDev"
-import Finance from "./Pages/task/Finance"
-import MainLayout from "./Components/MainLayout";
-import Portfolio from "./Pages/Portfolio";
-import Development from "./Pages/Development";
-import Brand from "./Pages/Brand";
-import About from "./Components/About";
-import Register from "./Pages/Register";
-import Login from "./Pages/Login";
-import PrivacyPolicy from "./Components/Legal/PrivacyPolicy";
-import Term from "./Components/Legal/Term";
-import DigitalMarketing from "./Pages/DigitalMarketing";
-import MetaAdds from "./Components/DigitalMarketing/MetaAdds";
-import Contact from "./Pages/Contact";
-import Career from "./Components/Career";
+const AppDev = lazy(() => import("./Pages/task/AppDev"));
+const Finance = lazy(() => import("./Pages/task/Finance"));
+const MainLayout = lazy(() => import("./Components/MainLayout"));
+const Portfolio = lazy(() => import("./Pages/Portfolio"));
+const Development = lazy(() => import("./Pages/Development"));
+const Brand = lazy(() => import("./Pages/Brand"));
+const About = lazy(() => import("./Components/About"));
+const Register = lazy(() => import("./Pages/Register"));
+const Login = lazy(() => import("./Pages/Login"));
+const PrivacyPolicy = lazy(() => import("./Components/Legal/PrivacyPolicy"));
+const Term = lazy(() => import("./Components/Legal/Term"));
+const DigitalMarketing = lazy(() => import("./Pages/DigitalMarketing"));
+const MetaAdds = lazy(() => import("./Components/DigitalMarketing/MetaAdds"));
+const Contact = lazy(() => import("./Pages/Contact"));
+const Career = lazy(() => import("./Components/Career"));
 import { Toaster } from "react-hot-toast";
-import Dashboard from "./Pages/Admin/Dashboard";
-import Overview from "./Pages/Admin/Overview";
-import Users from "./Pages/Admin/Users";
-import CareerList from "./Pages/Admin/CareerList";
-import Enquiry from "./Pages/Admin/Enquiry";
-import Contacts from "./Pages/Admin/Contacts";
-import Products from "./Pages/Admin/Products";
-import Employees from "./Pages/Admin/Employees";
-import Followup from "./Pages/Admin/Followup";
-import Refferal from "./Pages/Admin/Refferal";
-import Business from "./Pages/Admin/Business";
-import Corporate from "./Pages/Admin/Corporate";
-import ProductQuote from "./Pages/Admin/ProductQuote";
-import IotProducts from "./Pages/IotProducts";
-import Forgotpwd from "./Pages/Forgotpwd";
-import PageNotFound from "./PageNotFound";
-import ResetPassword from "./Pages/ResetPassword";
-import FAQ from "./Pages/FAQ";
-import Blogs from "./Pages/Blogs";
-import BlogPost from "./Pages/BlogPost";
-import BlogsAdmin from "./Pages/Admin/Blogs";
+const Dashboard = lazy(() => import("./Pages/Admin/Dashboard"));
+const Overview = lazy(() => import("./Pages/Admin/Overview"));
+const Users = lazy(() => import("./Pages/Admin/Users"));
+const CareerList = lazy(() => import("./Pages/Admin/CareerList"));
+const Enquiry = lazy(() => import("./Pages/Admin/Enquiry"));
+const Contacts = lazy(() => import("./Pages/Admin/Contacts"));
+const Products = lazy(() => import("./Pages/Admin/Products"));
+const Employees = lazy(() => import("./Pages/Admin/Employees"));
+const Followup = lazy(() => import("./Pages/Admin/Followup"));
+const Refferal = lazy(() => import("./Pages/Admin/Refferal"));
+const Business = lazy(() => import("./Pages/Admin/Business"));
+const Corporate = lazy(() => import("./Pages/Admin/Corporate"));
+const ProductQuote = lazy(() => import("./Pages/Admin/ProductQuote"));
+const IotProducts = lazy(() => import("./Pages/IotProducts"));
+const Forgotpwd = lazy(() => import("./Pages/Forgotpwd"));
+const PageNotFound = lazy(() => import("./PageNotFound"));
+const ResetPassword = lazy(() => import("./Pages/ResetPassword"));
+const FAQ = lazy(() => import("./Pages/FAQ"));
+const Blogs = lazy(() => import("./Pages/Blogs"));
+const BlogPost = lazy(() => import("./Pages/BlogPost"));
+const BlogsAdmin = lazy(() => import("./Pages/Admin/Blogs"));
 import './index.css';
 
 // Custom hook to scroll to top on route changes
@@ -70,6 +70,7 @@ const App = () => {
     <Router>
       <ScrollToTop />
       <Toaster position="top-right" reverseOrder={false} />
+      <Suspense fallback={<div style={{padding:20}}>Loading...</div>}>
       <Routes>
         {/* Main Layout with Header & Footer */}
         <Route path="/register" element= {<Register />} />
@@ -123,6 +124,7 @@ const App = () => {
           <Route path="blogs" element={<BlogsAdmin />} />
         </Route>
       </Routes>
+      </Suspense>
     </Router>
   );
 };

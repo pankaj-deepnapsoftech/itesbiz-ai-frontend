@@ -4,7 +4,7 @@ import Marquee from "react-fast-marquee";
 
 
 
-const Clients = () => {
+const Clients = React.memo(() => {
   const clientLogos = [
     "/clients/client1.png",
     "/clients/client2.webp",
@@ -33,12 +33,15 @@ const Clients = () => {
               className={`mx-6 object-cover ${idx === 3 || idx === 7 ? "w-[8rem]" : "h-[4rem]"}`}
               src={src}
               alt="client logo"
+              loading="lazy"
+              decoding="async"
+              fetchpriority="low"
             />
           ))}
         </Marquee>
       </div>
     </div>
   );
-};
+});
 
 export default Clients;

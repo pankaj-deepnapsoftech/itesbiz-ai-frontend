@@ -38,7 +38,7 @@ const teamMembers = [
   },
 ];
 
-const TeamCarousel = () => {
+const TeamCarousel = React.memo(() => {
   return (
     <div className="w-full  mx-auto py-10 bg-white p-4">
       <h2 className="text-4xl font-extrabold text-center text-gray-800 mb-8">
@@ -65,6 +65,9 @@ const TeamCarousel = () => {
                 src={member.image}
                 alt={member.name}
                 className="w-32 h-32 object-cover rounded-full border-4 border-white shadow-md"
+                loading="lazy"
+                decoding="async"
+                fetchpriority="low"
               />
               <h3 className="text-xl font-semibold text-black mt-4">
                 {member.name}
@@ -85,6 +88,6 @@ const TeamCarousel = () => {
       </Swiper>
     </div>
   );
-};
+});
 
 export default TeamCarousel;
