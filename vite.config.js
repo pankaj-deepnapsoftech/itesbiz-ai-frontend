@@ -14,7 +14,7 @@ export default defineConfig({
           react: ["react", "react-dom", "react-router-dom"],
           swiper: ["swiper"],
           three: ["three", "@react-three/fiber", "@react-three/drei"],
-          editor: ["quill", "lexical", "@lexical/react"],
+          quill: ["quill"],
         },
       },
     },
