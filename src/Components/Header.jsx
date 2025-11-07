@@ -124,7 +124,7 @@ const Header = () => {
                 }}
               >
                 <img
-                  src="itsybizz.png"
+                  src="/itsybizz.png"
                   alt="Logo"
                   className="h-28 w-auto object-contain"
                 />

@@ -21,7 +21,16 @@ const Brand = () => {
   // Extract query parameter
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const title = searchParams.get("title") || "Brand";
+  const rawTitle = searchParams.get("title") || "Brand";
+  const titleMap = {
+    BrandBuilding: "Brand Building",
+    ORM: "ORM",
+    PublicRelations: "Public Relations",
+    DigitalMarketing: "Digital Marketing",
+    InfluenceMarketing: "Influence Marketing",
+    SocialMediaPresence: "Social Media Presence",
+  };
+  const title = titleMap[rawTitle] || rawTitle;
 
   // Custom heading and image mapping
   const contentMap = {
@@ -90,7 +99,7 @@ const Brand = () => {
   // Get title and image based on selected category
   const headerTitle = contentMap[title]?.title || title;
   const subtitle = contentMap[title]?.subtitle || "Building powerful brand strategies";
-  const imageSrc = contentMap[title]?.image || "/images/default.svg";
+  const imageSrc = contentMap[title]?.image || "/notfound.svg";
   const SelectedComponent = contentMap[title]?.component || null;
   const icon = contentMap[title]?.icon || <FaBullhorn className="w-8 h-8" />;
   const gradient = contentMap[title]?.gradient || "from-blue-500 to-cyan-500";

@@ -5,42 +5,36 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { FaLinkedin } from "react-icons/fa";
-import deepak from "../../../public/teams/deepak.webp"
-import pankaj from "../../../public/teams/pankaj.webp"
-import vivek from "../../../public/teams/vivek.webp"
-import kiara from "../../../public/teams/kiara.webp"
-import nitin from "../../../public/teams/nitin.webp"
-import dinki from "../../../public/teams/nitin.webp"
 const teamMembers = [
   {
     name: "Deepak Sharma",
     post: "CEO",
-    image: deepak,
+    image: "/teams/deepak.webp",
   },
   {
     name: "Pankaj Kumar Shukla",
     post: "CTO",
-    image:pankaj,
+    image: "/teams/pankaj.webp",
   },
   {
     name: "Vivek",
     post: "CMO",
-    image: vivek,
+    image: "/teams/vivek.webp",
   },
   {
     name: "Kiara Chauhan",
     post: "HR",
-    image: kiara,
+    image: "/teams/kiara.webp",
   },
   {
     name: "Nitin Thakur",
     post: "Full Stack Developer",
-    image: nitin,
+    image: "/teams/nitin.webp",
   },
   {
     name: "Dinki",
     post: "Full Stack Developer",
-    image: dinki,
+    image: "/teams/dinki.png",
   },
 ];
 

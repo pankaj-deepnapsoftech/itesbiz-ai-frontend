@@ -63,7 +63,7 @@ const Sidebar = ({ toggleSidebar, isOpen }) => {
           <div className=" flex items-center justify-between font-bold text-xl mb-6 ml-7">
             <div className="relative bottom-2 h-16 w-44">
            <img 
-           src="\itsybizz.png"
+           src="/itsybizz.png"
            alt="logo"
            className="absolute top-1/2 left-12 h-32 w-52 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none"
            />

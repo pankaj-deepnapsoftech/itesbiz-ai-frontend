@@ -17,7 +17,15 @@ import crm from "../assets/crm.gif";
 const Development = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const title = searchParams.get("title") || "Development";
+  const rawTitle = searchParams.get("title") || "Development";
+  const titleMap = {
+    WebDevelopment: "Web Development",
+    WebDesign: "Web Design",
+    SoftwareDevelopment: "Software Development",
+    AppDevelopment: "App Development",
+    CRMDevelopment: "CRM Development",
+  };
+  const title = titleMap[rawTitle] || rawTitle;
 
   const contentMap = {
     "Web Development": {
@@ -74,7 +82,7 @@ const Development = () => {
 
   const headerTitle = contentMap[title]?.title || title;
   const subtitle = contentMap[title]?.subtitle || "Building innovative digital solutions";
-  const imageSrc = contentMap[title]?.image || "/images/default.svg";
+  const imageSrc = contentMap[title]?.image || "/notfound.svg";
   const SelectedComponent = contentMap[title]?.component || null;
   const icon = contentMap[title]?.icon || <FaCode className="w-8 h-8" />;
   const gradient = contentMap[title]?.gradient || "from-blue-500 to-cyan-500";
